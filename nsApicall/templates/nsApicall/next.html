@@ -1,0 +1,21 @@
+{% load static from staticfiles %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'nsApicall/css/style.css' %}" />
+<script src="{% static 'nsApicall/js/angular.min.js' %}"></script>
+<script src="{% static 'nsApicall/js/jquery-1.11.2.min.js' %}"></script>
+<script src="{% static 'nsApicall/js/next.js' %}"></script>
+
+<body>
+  <input type="text" id="api" style="display:none" value="{{api}}"></input>
+  <input type="text" id="guid" style="display:none" value="{{guid}}"></input>
+  {% verbatim %}
+  <div ng-app="SingleView">
+    <div id="singleContentContainer" ng-controller="SingleViewController as svController">
+      <input type="text" id="searchData" style="display:none" ng-model="searchData"></input>
+      <img src="{{ image_url }}"/>
+      <div class="singelDesc">{{ description }}</div>
+    </div>
+  </div>
+  {% endverbatim %}
+</body>

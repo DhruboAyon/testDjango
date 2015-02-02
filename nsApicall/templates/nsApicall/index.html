@@ -1,0 +1,39 @@
+{% load static from staticfiles %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'nsApicall/css/style.css' %}" />
+<script src="{% static 'nsApicall/js/angular.min.js' %}"></script>
+<script src="{% static 'nsApicall/js/main.js' %}"></script>
+{% verbatim %}
+<body ng-app="MainApplication">
+  <div ng-controller="ArticlesController as articles">
+    <form class="form-wrapper cf">
+      <input type="text" ng-model="searchData" 
+	     ng-keyup="$event.keyCode == 13 && loadArticles(searchData)" 
+	     placeholder="Search here using NewsCred API..." autofocus></input>
+      <button type="button" ng-click="loadArticles(searchData)">Search</button>
+    </form>
+
+    <div class="leftContainer">
+      <h2>Articles</h2>
+      <div class="searchItemDiv" ng-repeat="article in filtered = (searchList | filter: query)" ng-hide="{{ article.thumbnail == null }}" >
+	<a href="article/{{article.guid}}" >
+	  <img src="{{ article.thumbnail.link }}"/>	    
+	  <div class="itemTitle">{{ article.title }} </div>
+	  <div class="clear"></div>
+	</a>
+      </div>
+    </div>
+    <div class="rightContainer">
+      <h2>Topics</h2>
+      <div class="searchItemDiv" ng-repeat="topic in filtered = (topicsSearchList | filter: query)" ng-hide="{{ topic == null }}" >
+	<a href="topic/{{topic.guid}}" >
+	  <img src="{{ topic.image_url }}"/>
+	  <div class="itemTitle">{{ topic.name }} </div>
+	  <div class="clear"></div>
+	</a>
+      </div>
+    </div>
+  </div>
+</body>
+{% endverbatim %}
